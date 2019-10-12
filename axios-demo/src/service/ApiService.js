@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EMP_API_BASE_URL = 'http://localhost:3080/employees';
+const EMP_API_BASE_URL = 'http://localhost:3000/employees';
 
 class ApiService {
 
@@ -20,7 +20,7 @@ class ApiService {
     return axios.post("" + EMP_API_BASE_URL, employee);
   }
 
-  editUser(employee) {
+  editEmployee(employee) {
     return axios.put(EMP_API_BASE_URL + '/' + employee.id, employee);
   }
 

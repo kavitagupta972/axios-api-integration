@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import ApiService from "./service/ApiService";
-import './App.css';
+import ApiService from "../service/ApiService";
+import './ReactTableComponent.css';
 
 class ReactTableComponent extends React.Component {
   constructor() {
@@ -18,27 +18,30 @@ class ReactTableComponent extends React.Component {
         accessor: "action",
         headerStyle: { whitespace: 'unset' },
         style: { whitespace: 'unset' },
-        cell: row => {
-          <div>
-            <span
-              className="basicLink"
-              style={{ cursor: 'pointer', marginRight: '10px' }}
-              onClick={() => {
-                this.editRow(row);
-              }}
-            >
-              {'Edit'}
-            </span>
-            <span
-              className="basicLink"
-              style={{ cursor: 'pointer', marginRight: '10px' }}
-              onClick={() => {
-                this.editRow(row);
-              }}
-            >
-              {'Delete'}
-            </span>
-          </div>
+        Cell: ({ row }) => {
+
+          return (
+            <div>
+              <span
+                className="basicLink"
+                style={{ cursor: 'pointer', marginRight: '10px' }}
+                onClick={() => {
+                  this.editRow(row);
+                }}
+              >
+                {'Edit'}
+              </span>
+              <span
+                className="basicLink"
+                style={{ cursor: 'pointer', marginRight: '10px' }}
+                onClick={() => {
+                  this.deleteRow(row);
+                }}
+              >
+                {'Delete'}
+              </span>
+            </div>
+          );
         }
       },
       {
@@ -63,20 +66,19 @@ class ReactTableComponent extends React.Component {
         Header: "EMAIL",
         accessor: "email",
         headerStyle: { whitespace: 'unset' },
-        style: { whitespace: 'unset' },
-        maxWidth: 150,
+        style: { whitespace: 'unset' }
       },
     ];
   }
   editRow = row => {
-    console.log("inside edit row", row.row);
+    console.log("inside edit row", row);
     ApiService.editEmployee({
       "first_name": "kavita",
       "last_name": "gupta",
       "email": "kavitagupta972@gmail.com",
-      "id": row.row.id
+      "id": row.id
     }).then(res => {
-      console.log("in edit method ...", res);
+      console.log("in edit method ...");
       this.reloadData();
     })
 
@@ -87,42 +89,46 @@ class ReactTableComponent extends React.Component {
       "first_name": "kavita",
       "last_name": "gupta",
       "email": "kavitagupta972@gmail.com",
-      "id": 34
+      "id": 39
     }).then(res => {
-      console.log("in edit method ...", res);
+      console.log("in add method ...");
       this.reloadData();
     })
   };
 
   deleteRow = row => {
-    console.log("inside delete row ", row.row.id);
-    ApiService.deleteEmployee(row.row.id).then(res => {
-      console.log("in delete method .....", res);
+    console.log("inside delete row ", row.id);
+    ApiService.deleteEmployee(row.id).then(res => {
+      console.log("in delete method .....");
       this.reloadData();
     })
   };
-  componentDidMount() {
-    this.reloadData();
-  }
+
   reloadData = () => {
     ApiService.fetchEmployees('http://localhost:3000/employees')
       .then(res => {
+        console.log("data ... ", res.data);
         this.setState({
           data: res.data,
         })
       })
-  }
+  };
+
+  componentDidMount() {
+    this.reloadData();
+  };
+
   render() {
     const { data } = this.state;
     return (
       <div style={{ padding: '50px' }}>
-        <button className="btn btn-danger" style={{ width: '100px' }} onClick={() => this.addRow()}> Add Employee</button>
+        <button className="btn btn-danger" style={{ width: '100px', marginLeft: '1200px' }} onClick={() => this.addRow()}>Add Record</button>
+        <br />
         <br />
         <ReactTable
           data={data}
           defaultPageSize={10}
           columns={this.columns}
-          pageSize={1}
           className="-striped -highlight"
         />
         <br />

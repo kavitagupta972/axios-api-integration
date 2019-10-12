@@ -1,0 +1,14 @@
+[user]
+	email = kavitagupta972@gmail.com
+	name = Kavita Gupta
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = cache --timeout=2592000
+[gui]
+	recentrepo = D:/Projects/Extron-Frontend
+[core]
+	askpass = C:/Program Files/Git/usr/libexec/git-core/git-gui--askpass

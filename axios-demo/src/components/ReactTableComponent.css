@@ -1,0 +1,7 @@
+.basicLink {
+  background-color: transparent;
+  color: #09d3ac;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.25s ease-out, background-color 0.25s ease-out;
+}
