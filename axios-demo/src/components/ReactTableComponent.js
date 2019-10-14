@@ -33,31 +33,10 @@ class ReactTableComponent extends React.Component {
           return (
             <div>
 
-              {/* Modal Example */}
-              <div>
-
-                {/* <Button color="danger" onClick={this.toggle}>TOGGLE</Button> */}
-                <Modal isOpen={this.state.modal} toggle={this.toggle}
-                  fade={this.state.fade}
-                >
-                  <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                  <ModalBody>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                  </ModalFooter>
-                </Modal>
-              </div>
-              {/* Modal Example */}
               <span
                 className="basicLink"
                 style={{ cursor: 'pointer', marginRight: '10px' }}
                 onClick={() => {
-                  // this.editRow(original);
-                  console.log("ID");
-                  console.log(original.id);
-                  console.log("ID");
                   this.getRecordById(original.id);
                 }}
               >
@@ -105,18 +84,10 @@ class ReactTableComponent extends React.Component {
 
 
   handleChange = event => {
-    this.setState({ [event.target.id]: event.target.value }, () => {
-      console.log("NEW STATE");
-      console.log(this.state);
-      console.log("NEW STATE");
-    });
+    this.setState({ [event.target.id]: event.target.value });
   };
 
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
+
 
   getRecordById = (id = 0) => {
 
